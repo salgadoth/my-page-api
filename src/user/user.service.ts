@@ -18,27 +18,33 @@ export class UserService {
       const user = await this.prismaService.user.create({
         data: {
           ...userData,
+          UserExperience: {
+            createMany: { data: [...experience] },
+          },
+          UserProjects: {
+            createMany: { data: [...projects] },
+          },
         },
       });
 
-      const experienceWithUserId = experience.map((exp) => ({
-        ...exp,
-        userId: user.id,
-      }));
+      // const experienceWithUserId = experience.map((exp) => ({
+      //   ...exp,
+      //   userId: user.id,
+      // }));
 
-      const projectsWithUserId = projects.map((proj) => ({
-        ...proj,
-        userId: user.id,
-      }));
+      // const projectsWithUserId = projects.map((proj) => ({
+      //   ...proj,
+      //   userId: user.id,
+      // }));
 
-      await Promise.all([
-        this.prismaService.userExperience.createMany({
-          data: experienceWithUserId,
-        }),
-        this.prismaService.userProjects.createMany({
-          data: projectsWithUserId,
-        }),
-      ]);
+      // await Promise.all([
+      //   this.prismaService.userExperience.createMany({
+      //     data: experienceWithUserId,
+      //   }),
+      //   this.prismaService.userProjects.createMany({
+      //     data: projectsWithUserId,
+      //   }),
+      // ]);
 
       return user;
     } catch (error) {
@@ -51,14 +57,20 @@ export class UserService {
   }
 
   findOne(username: string) {
-    return this.prismaService.user.findFirstOrThrow({ where: { username } });
+    return this.prismaService.user.findFirst({
+      where: { username },
+      include: {
+        UserExperience: true,
+        UserProjects: true,
+      },
+    });
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
+  update(id: string, updateUserDto: UpdateUserDto) {
     return `This action updates a #${id} user`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} user`;
   }
 }
