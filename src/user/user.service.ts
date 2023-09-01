@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
 
@@ -27,25 +26,6 @@ export class UserService {
         },
       });
 
-      // const experienceWithUserId = experience.map((exp) => ({
-      //   ...exp,
-      //   userId: user.id,
-      // }));
-
-      // const projectsWithUserId = projects.map((proj) => ({
-      //   ...proj,
-      //   userId: user.id,
-      // }));
-
-      // await Promise.all([
-      //   this.prismaService.userExperience.createMany({
-      //     data: experienceWithUserId,
-      //   }),
-      //   this.prismaService.userProjects.createMany({
-      //     data: projectsWithUserId,
-      //   }),
-      // ]);
-
       return user;
     } catch (error) {
       throw new Error('Failed to create user and associate data.');
@@ -66,7 +46,7 @@ export class UserService {
     });
   }
 
-  update(id: string, updateUserDto: UpdateUserDto) {
+  update(id: string) {
     return `This action updates a #${id} user`;
   }
 

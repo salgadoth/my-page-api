@@ -9,7 +9,6 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { Public } from 'src/config/metadata';
 
 @Controller('user')
@@ -32,7 +31,7 @@ export class UserController {
   @Get(':username')
   async findOne(@Param('username') usernameParam: string) {
     const user = await this.userService.findOne(usernameParam);
-    console.log(user);
+
     const {
       username,
       fname,
@@ -54,9 +53,9 @@ export class UserController {
     };
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(id, updateUserDto);
+  @Patch(':id') //TODO
+  update(@Param('id') id: string) {
+    return this.userService.update(id);
   }
 
   @Delete(':id')
