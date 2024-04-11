@@ -1,7 +1,7 @@
 import { Prisma } from '@prisma/client';
 
 export class CreateUserProjectsDto
-  implements Prisma.UserProjectsCreateManyInput
+  implements Prisma.ProjectsCreateManyInput
 {
   id?: string;
   screenshot?: Buffer;

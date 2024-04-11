@@ -15,7 +15,7 @@ import { Public } from 'src/config/metadata';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Public()
+  // @Public()
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
@@ -38,8 +38,8 @@ export class UserController {
       lname,
       created_at,
       updated_at,
-      UserExperience,
-      UserProjects,
+      my_experiences,
+      my_projects,
     } = user;
 
     return {
@@ -48,8 +48,8 @@ export class UserController {
       lname,
       created_at,
       updated_at,
-      UserExperience,
-      UserProjects,
+      my_experiences,
+      my_projects,
     };
   }
 
@@ -58,7 +58,7 @@ export class UserController {
     return this.userService.update(id);
   }
 
-  @Delete(':id')
+  @Delete(':id') //TODO
   remove(@Param('id') id: string) {
     return this.userService.remove(id);
   }

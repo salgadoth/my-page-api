@@ -17,18 +17,20 @@ export class UserService {
       const user = await this.prismaService.user.create({
         data: {
           ...userData,
-          UserExperience: {
+          my_experiences: {
             createMany: { data: [...experience] },
           },
-          UserProjects: {
+          my_projects: {
             createMany: { data: [...projects] },
           },
         },
       });
 
-      return user;
+      const {id, username, password, fname, lname, created_at, updated_at} = user
+
+      return {id, username, password, fname, lname, created_at, updated_at};
     } catch (error) {
-      throw new Error('Failed to create user and associate data.');
+      throw new Error('Failed to create user and associate data, error: ' + error);
     }
   }
 
@@ -40,8 +42,8 @@ export class UserService {
     return this.prismaService.user.findFirst({
       where: { username },
       include: {
-        UserExperience: true,
-        UserProjects: true,
+        my_experiences: true,
+        my_projects: true,
       },
     });
   }

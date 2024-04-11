@@ -1,7 +1,7 @@
 import { Prisma } from '@prisma/client';
 
 export class CreateUserExperienceDto
-  implements Prisma.UserExperienceCreateManyInput
+  implements Prisma.ExperiencesCreateManyInput
 {
   userId: string;
   title: string;

@@ -1,14 +1,14 @@
 GET http://localhost:3000/user/salgadoth
 
-###
+####
 POST http://localhost:3000/user
 Content-Type: application/json
 
 {
-    "username": "salgadoth",
+    "username": "jonasB",
     "password": "holdBack!",
-    "fname": "Thiago",
-    "lname": "Machado",
+    "fname": "Jonas",
+    "lname": "Brothers",
     "experience": [
         {
             "title": "Software Engineer",
