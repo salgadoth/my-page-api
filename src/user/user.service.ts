@@ -9,7 +9,8 @@ export class UserService {
 
   async create(createUserDto: CreateUserDto) {
     try {
-      const { experience, projects, ...userData } = createUserDto;
+      const { experience, projects, contacts, personal_links, ...userData } =
+        createUserDto;
 
       const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
       userData.password = hashedPassword;
@@ -23,14 +24,23 @@ export class UserService {
           my_projects: {
             createMany: { data: [...projects] },
           },
+          my_contacts: {
+            createMany: { data: [...contacts] },
+          },
+          my_links: {
+            createMany: { data: [...personal_links] },
+          },
         },
       });
 
-      const {id, username, password, fname, lname, created_at, updated_at} = user
+      const { id, username, password, fname, lname, created_at, updated_at } =
+        user;
 
-      return {id, username, password, fname, lname, created_at, updated_at};
+      return { id, username, password, fname, lname, created_at, updated_at };
     } catch (error) {
-      throw new Error('Failed to create user and associate data, error: ' + error);
+      throw new Error(
+        'Failed to create user and associate data, error: ' + error,
+      );
     }
   }
 
@@ -44,6 +54,8 @@ export class UserService {
       include: {
         my_experiences: true,
         my_projects: true,
+        my_contacts: true,
+        my_links: true,
       },
     });
   }

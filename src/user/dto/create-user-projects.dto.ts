@@ -1,10 +1,6 @@
 import { Prisma } from '@prisma/client';
 
-export class CreateUserProjectsDto
-  implements Prisma.ProjectsCreateManyInput
-{
-  id?: string;
-  screenshot?: Buffer;
+export class CreateUserProjectsDto implements Prisma.ProjectsCreateManyInput {
   created_at?: string | Date;
   updated_at?: string | Date;
   userId: string;

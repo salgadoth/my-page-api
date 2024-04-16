@@ -15,9 +15,10 @@ import { Public } from 'src/config/metadata';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  // @Public()
+  @Public()
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
+    console.log(createUserDto);
     return this.userService.create(createUserDto);
   }
 
@@ -34,22 +35,32 @@ export class UserController {
 
     const {
       username,
+      title,
       fname,
       lname,
       created_at,
       updated_at,
+      city,
+      country,
+      state,
       my_experiences,
       my_projects,
+      my_contacts,
     } = user;
 
     return {
       username,
+      title,
       fname,
       lname,
+      city,
+      state,
+      country,
       created_at,
       updated_at,
       my_experiences,
       my_projects,
+      my_contacts,
     };
   }
 
