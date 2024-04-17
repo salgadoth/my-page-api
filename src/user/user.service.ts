@@ -9,8 +9,24 @@ export class UserService {
 
   async create(createUserDto: CreateUserDto) {
     try {
-      const { experience, projects, contacts, personal_links, ...userData } =
-        createUserDto;
+      const {
+        experience,
+        projects,
+        contacts,
+        personal_links,
+        languages,
+        ...userData
+      } = createUserDto;
+
+      experience.map((experieces) => {
+        experieces.started = new Date(experieces.started);
+        if (experieces.ended) experieces.ended = new Date(experieces.ended);
+        else experieces.ended = null;
+      });
+
+      projects.map((project) => {
+        project.date = new Date(project.date);
+      });
 
       const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
       userData.password = hashedPassword;
@@ -29,6 +45,9 @@ export class UserService {
           },
           my_links: {
             createMany: { data: [...personal_links] },
+          },
+          my_laguages: {
+            createMany: { data: [...languages] },
           },
         },
       });

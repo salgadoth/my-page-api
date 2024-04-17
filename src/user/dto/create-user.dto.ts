@@ -1,5 +1,6 @@
 import { CreateUserContactsDto } from './create-user-contacts.dto';
 import { CreateUserExperienceDto } from './create-user-experience.dto';
+import { CreateUserLanguagesDto } from './create-user-languages';
 import { CreateUserLinksDto } from './create-user-links.dto';
 import { CreateUserProjectsDto } from './create-user-projects.dto';
 
@@ -18,4 +19,5 @@ export class CreateUserDto {
   projects: CreateUserProjectsDto[];
   contacts: CreateUserContactsDto[];
   personal_links: CreateUserLinksDto[];
+  languages: CreateUserLanguagesDto[];
 }

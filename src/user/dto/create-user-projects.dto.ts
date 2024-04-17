@@ -6,7 +6,7 @@ export class CreateUserProjectsDto implements Prisma.ProjectsCreateManyInput {
   userId: string;
   // screenshot?: Buffer;
   name: string;
-  languages: string;
+  tech: string[];
   date: Date;
   details: string;
   rating: number;
