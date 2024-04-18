@@ -15,6 +15,7 @@ export class CreateUserDto {
   city: string;
   street: string;
 
+  skill_set: string[];
   experience: CreateUserExperienceDto[];
   projects: CreateUserProjectsDto[];
   contacts: CreateUserContactsDto[];
