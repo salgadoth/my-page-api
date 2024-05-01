@@ -46,7 +46,7 @@ export class UserService {
           my_links: {
             createMany: { data: [...personal_links] },
           },
-          my_laguages: {
+          my_languages: {
             createMany: { data: [...languages] },
           },
         },
@@ -75,6 +75,7 @@ export class UserService {
         my_projects: true,
         my_contacts: true,
         my_links: true,
+        my_languages: true,
       },
     });
   }

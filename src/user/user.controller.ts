@@ -55,6 +55,7 @@ export class UserController {
       my_projects,
       my_contacts,
       my_links,
+      my_languages,
     } = user;
 
     return {
@@ -72,6 +73,7 @@ export class UserController {
       my_projects,
       my_contacts,
       my_links,
+      my_languages,
     };
   }
 

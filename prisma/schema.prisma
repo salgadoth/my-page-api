@@ -31,7 +31,7 @@ model User {
   my_projects    Projects[]
   my_contacts    Contacts[]
   my_links       Links[]
-  my_laguages    Languages[]
+  my_languages    Languages[]
 }
 
 model Experiences {
