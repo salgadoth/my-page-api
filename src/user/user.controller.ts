@@ -17,7 +17,7 @@ import { Public } from 'src/config/metadata';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Public()
+  // @Public()
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
@@ -56,6 +56,7 @@ export class UserController {
       my_contacts,
       my_links,
       my_languages,
+      my_education,
     } = user;
 
     return {
@@ -74,6 +75,7 @@ export class UserController {
       my_contacts,
       my_links,
       my_languages,
+      my_education,
     };
   }
 

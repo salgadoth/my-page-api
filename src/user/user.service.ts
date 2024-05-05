@@ -15,8 +15,15 @@ export class UserService {
         contacts,
         personal_links,
         languages,
+        education,
         ...userData
       } = createUserDto;
+
+      education.map((ed) => {
+        ed.started_at = new Date(ed.started_at);
+        if (ed.ended_at) ed.ended_at = new Date(ed.ended_at);
+        else ed.ended_at = null;
+      });
 
       experience.map((experieces) => {
         experieces.started = new Date(experieces.started);
@@ -49,6 +56,9 @@ export class UserService {
           my_languages: {
             createMany: { data: [...languages] },
           },
+          my_education: {
+            createMany: { data: [...education] },
+          },
         },
       });
 
@@ -76,6 +86,7 @@ export class UserService {
         my_contacts: true,
         my_links: true,
         my_languages: true,
+        my_education: true,
       },
     });
   }
