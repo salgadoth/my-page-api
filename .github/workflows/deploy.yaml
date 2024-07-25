@@ -23,7 +23,7 @@ jobs:
       
       - name: Deploy to Server
         run: |
-          cd /_work/my-page-api
+          cd ../my-page-api/my-page-api/
           rsync -avz --exclude="node_modules" --exclude=".git" ./dist /home/$USER/deployments/my-page-api
           cd /home/$USER/deployments/my-page-api
           npm install --production
