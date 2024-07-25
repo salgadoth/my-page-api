@@ -25,8 +25,10 @@ jobs:
         run: npm run build
       
       - name: Deploy to Server
+        env: 
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: |
           rsync -avz --exclude="node_modules" --exclude=".git" /etc/actions-runner/_work/my-page-api/my-page-api/ /home/salgadoth/deployments/my-page-api
           cd /home/$USER/deployments/my-page-api
           npm install --production
-          pm2 restart all || pm2 start dist/main.js --name "nestjs-api"
+          pm2 restart all || pm2 start dist/main.js --name "my-page-api"
