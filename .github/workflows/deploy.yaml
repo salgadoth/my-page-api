@@ -26,8 +26,7 @@ jobs:
       
       - name: Deploy to Server
         run: |
-          cd /etc/actions-runner/_work/my-page-api/my-page-api
-          rsync -avz --exclude="node_modules" --exclude=".git" ./dist /home/$USER/deployments/my-page-api
+          rsync -avz --exclude="node_modules" --exclude=".git" /etc/actions-runner/_work/my-page-api/my-page-api/ /home/salgadoth/deployments/my-page-api
           cd /home/$USER/deployments/my-page-api
           npm install --production
           pm2 restart all || pm2 start dist/main.js --name "nestjs-api"
