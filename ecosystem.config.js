@@ -10,7 +10,7 @@ module.exports = {
         },
         {
             name: 'metrics-server',
-            script: 'metrics.js'
+            script: './metrics.js'
         }
     ]
 }
