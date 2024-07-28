@@ -59,7 +59,7 @@ model Projects {
   tech       String[]
   date       DateTime
   details    String
-  screenshot Bytes?
+  screenshot String
   rating     Float
 
   created_at DateTime @default(now())
