@@ -29,7 +29,7 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: |
           echo "DATABASE_URL=${{ secrets.DATABASE_URL }}"
-          rsync -avz --exclude="node_modules" --exclude=".git" /etc/actions-runner/_work/my-page-api/my-page-api/ /home/salgadoth/deployments/my-page-api
+          rsync -avz --exclude="node_modules" --exclude=".git" /etc/actions-runner/runner-my-page-api/_work/my-page-api/my-page-api/ /home/salgadoth/deployments/my-page-api
           cd /home/$USER/deployments/my-page-api
           npm install --production
           pm2 restart all || pm2 start dist/main.js --name "my-page-api"
