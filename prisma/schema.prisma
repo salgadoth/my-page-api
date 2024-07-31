@@ -113,3 +113,12 @@ model Education {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
+
+model Message {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  name            String 
+  preferredMethod String
+  contactDetails  String
+  message         String
+  notified        Boolean  @default(false)
+}
