@@ -117,8 +117,8 @@ model Education {
 model Message {
   id              String   @id @default(auto()) @map("_id") @db.ObjectId
   name            String 
-  preferredMethod String
-  contactDetails  String
+  email           String
+  phone           String?
   message         String
   notified        Boolean  @default(false)
 }

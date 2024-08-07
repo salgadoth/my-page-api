@@ -1,6 +1,6 @@
 export class RegisterNewMessageDTO {
   name: string;
-  preferredMethod: string;
-  contactDetails: string;
+  email: string;
+  phone?: string;
   message: string;
 }

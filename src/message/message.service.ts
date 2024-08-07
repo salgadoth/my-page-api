@@ -1,32 +1,40 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { RegisterNewMessageDTO } from './dto/register-new-message.dto';
+import { KafkaService } from 'src/kafka/kafka.service';
 
 @Injectable()
 export class MessageService {
-  constructor(private prismaService: PrismaService) {}
+  constructor(
+    private prismaService: PrismaService,
+    private kafkaService: KafkaService,
+  ) {}
 
-  async findOne(contactDetails: string) {
+  async findOne(email: string) {
     return this.prismaService.message.findFirst({
-      where: { contactDetails },
+      where: { email },
     });
   }
 
   async register(registerNewMessage: RegisterNewMessageDTO) {
-    try {
-      const message = await this.findOne(registerNewMessage.contactDetails);
-      if (message)
-        throw new ConflictException('A message from this user already exists.');
+    const message = await this.findOne(registerNewMessage.email);
+    if (message)
+      throw new HttpException(
+        'A message from this user already exists.',
+        HttpStatus.CONFLICT,
+      );
 
-      const registeredMessage = await this.prismaService.message.create({
-        data: { ...registerNewMessage },
-      });
+    const registeredMessage = await this.prismaService.message.create({
+      data: { ...registerNewMessage },
+    });
 
-      return registeredMessage;
-    } catch (error) {
-      throw new Error(
-        'Failed to register message and associated data, error: ' + error,
+    if (registeredMessage) {
+      this.kafkaService.sendMessage(
+        'QUEUE_NEW_MESSAGE',
+        JSON.stringify(registeredMessage),
       );
     }
+
+    return registeredMessage;
   }
 }
