@@ -1,7 +1,9 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { RegisterNewMessageDTO } from './dto/register-new-message.dto';
 import { MessageService } from './message.service';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @Controller('message')
 export class MessageController {
   constructor(private readonly messageService: MessageService) {}
