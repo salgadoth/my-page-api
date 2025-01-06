@@ -6,8 +6,6 @@ import {
   Patch,
   Param,
   Delete,
-  HttpException,
-  HttpStatus,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -32,51 +30,7 @@ export class UserController {
   @Public()
   @Get(':username')
   async findOne(@Param('username') usernameParam: string) {
-    const user = await this.userService.findOne(usernameParam);
-
-    if (user === null)
-      return new HttpException(
-        'User not found, check provided username.',
-        HttpStatus.BAD_REQUEST,
-      );
-
-    const {
-      username,
-      title,
-      fname,
-      lname,
-      created_at,
-      updated_at,
-      city,
-      country,
-      state,
-      skill_set,
-      my_experiences,
-      my_projects,
-      my_contacts,
-      my_links,
-      my_languages,
-      my_education,
-    } = user;
-
-    return {
-      username,
-      title,
-      fname,
-      lname,
-      city,
-      state,
-      country,
-      created_at,
-      updated_at,
-      skill_set,
-      my_experiences,
-      my_projects,
-      my_contacts,
-      my_links,
-      my_languages,
-      my_education,
-    };
+    return this.userService.findOne(usernameParam);
   }
 
   @Patch(':id') //TODO
