@@ -22,13 +22,13 @@ export class AuthService {
     if (!username || !pass) {
       throw new BadRequestException('Username or password not provided.');
     }
-    const user = await this.usersService.findOne(username);
+    const user = await this.usersService.findCredentials(username);
 
     if (!bcrpyt.compare(pass, user.password)) {
       throw new UnauthorizedException();
     }
 
-    const payload = { sub: user.id, username: user.username };
+    const payload = { sub: user.id, username: username };
 
     return {
       access_token: await this.jwtService.signAsync(payload),
