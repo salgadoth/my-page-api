@@ -1,13 +1,14 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { RegisterNewMessageDTO } from './dto/register-new-message.dto';
-import { KafkaService } from 'src/kafka/kafka.service';
+import { randomUUID } from 'crypto';
+import { RabbitMQService } from 'src/rabbit/rabbit.service';
 
 @Injectable()
 export class MessageService {
   constructor(
     private prismaService: PrismaService,
-    private kafkaService: KafkaService,
+    private rabbitMQService: RabbitMQService,
   ) {}
 
   async findOne(email: string) {
@@ -29,9 +30,16 @@ export class MessageService {
     });
 
     if (registeredMessage) {
-      this.kafkaService.sendMessage(
+      const payload = {
+        correlationId: {
+          id: randomUUID(),
+        },
+        payload: registeredMessage,
+      };
+
+      this.rabbitMQService.sendMessage(
         'QUEUE_NEW_MESSAGE',
-        JSON.stringify(registeredMessage),
+        JSON.stringify(payload),
       );
     }
 

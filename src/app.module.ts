@@ -3,12 +3,18 @@ import { PrismaModule } from './prisma/prisma.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { MessageModule } from './message/message.module';
-import { KafkaService } from './kafka/kafka.service';
-import { KafkaModule } from './kafka/kafka.module';
+import { RabbitMQModule } from './rabbit/rabbit.module';
+import { RabbitMQService } from './rabbit/rabbit.service';
 
 @Module({
-  imports: [PrismaModule, UserModule, AuthModule, MessageModule, KafkaModule],
+  imports: [
+    PrismaModule,
+    UserModule,
+    AuthModule,
+    MessageModule,
+    RabbitMQModule,
+  ],
   controllers: [],
-  providers: [KafkaService],
+  providers: [RabbitMQService],
 })
 export class AppModule {}
