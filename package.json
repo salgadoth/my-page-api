@@ -29,7 +29,7 @@
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/swagger": "^7.4.0",
     "@prisma/client": "^5.17.0",
-    "amqplib": "^0.10.5",
+    "amqplib": "^0.10.7",
     "bcrypt": "^5.1.1",
     "express": "^4.19.2",
     "kafkajs": "^2.2.4",
