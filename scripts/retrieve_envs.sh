@@ -4,7 +4,12 @@
 # and writes them to a .env file in the current directory.
 
 cd /deployments/my-page-api # Change to the deployment directory
-sudo touch ".env" # Create the .env file if it doesn't exist
+if [ -f .env ]; then
+  > ".env" # Clear the existing .env file if it exists
+else
+  sudo touch ".env" # Create the .env file if it doesn't exist
+fi
+
 sudo chmod 600 ".env" # Set permissions to read/write for the owner only
 sudo chown $USER:$USER ".env" # Change ownership to the current user
 
